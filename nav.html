@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Interactive Navigation Menu</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Internal CSS -->
+    <style>
+        /* Reset Default Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            line-height: 1.6;
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 40px;
+            background: transparent;
+            color: white;
+            transition: all 0.3s ease-in-out;
+            z-index: 1000;
+        }
+
+        /* Logo */
+        .logo {
+            font-size: 1.6rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        /* Navigation Menu */
+        .nav-menu {
+            list-style: none;
+            display: flex;
+        }
+
+        .nav-menu li {
+            margin-left: 25px;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: white;
+            font-size: 1rem;
+            padding: 8px 14px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        /* Hover Effect */
+        .nav-link:hover {
+            background: #00bcd4;
+            color: #fff;
+        }
+
+        /* Active Link */
+        .nav-link.active {
+            background: #00bcd4;
+            color: #fff;
+        }
+
+        /* Navbar Style on Scroll */
+        .navbar.scrolled {
+            background: #0d1b2a;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            padding: 10px 40px;
+        }
+
+        .navbar.scrolled .nav-link {
+            color: #ffffff;
+        }
+
+        /* Sections */
+        section {
+            height: 100vh;
+            padding: 100px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        #home {
+            background: linear-gradient(to right, #0072ff, #00c6ff);
+            color: white;
+        }
+
+        #about {
+            background: #f4f4f4;
+            color: #333;
+        }
+
+        #services {
+            background: #e3f2fd;
+            color: #333;
+        }
+
+        #contact {
+            background: #0d1b2a;
+            color: white;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        p {
+            font-size: 1.1rem;
+            max-width: 700px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                padding: 15px;
+            }
+
+            .nav-menu {
+                flex-direction: column;
+                margin-top: 10px;
+            }
+
+            .nav-menu li {
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar" id="navbar">
+        <div class="logo">MyWebsite</div>
+        <ul class="nav-menu">
+            <li><a href="#home" class="nav-link active">Home</a></li>
+            <li><a href="#about" class="nav-link">About</a></li>
+            <li><a href="#services" class="nav-link">Services</a></li>
+            <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Sections -->
+    <section id="home">
+        <h1>Welcome to My Website</h1>
+        <p>Scroll down to see the interactive navigation menu change its style. Hover over menu items to view the effects.</p>
+    </section>
+
+    <section id="about">
+        <h1>About Us</h1>
+        <p>We create modern, responsive, and user-friendly web experiences using the latest technologies.</p>
+    </section>
+
+    <section id="services">
+        <h1>Our Services</h1>
+        <p>We offer web development, UI/UX design, and software solutions tailored to your needs.</p>
+    </section>
+
+    <section id="contact">
+        <h1>Contact Us</h1>
+        <p>Email: contact@mywebsite.com | Phone: +91 98765 43210</p>
+    </section>
+
+    <!-- Internal JavaScript -->
+    <script>
+        // Change Navbar Style on Scroll
+        window.addEventListener("scroll", function () {
+            const navbar = document.getElementById("navbar");
+            if (window.scrollY > 50) {
+                navbar.classList.add("scrolled");
+            } else {
+                navbar.classList.remove("scrolled");
+            }
+        });
+
+        // Highlight Active Menu Item on Scroll
+        const sections = document.querySelectorAll("section");
+        const navLinks = document.querySelectorAll(".nav-link");
+
+        window.addEventListener("scroll", () => {
+            let current = "";
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 120;
+                const sectionHeight = section.clientHeight;
+
+                if (window.scrollY >= sectionTop &&
+                    window.scrollY < sectionTop + sectionHeight) {
+                    current = section.getAttribute("id");
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove("active");
+                if (link.getAttribute("href").includes(current)) {
+                    link.classList.add("active");
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
